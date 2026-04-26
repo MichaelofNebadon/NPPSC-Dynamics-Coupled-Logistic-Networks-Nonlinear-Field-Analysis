@@ -48,4 +48,17 @@ if __name__ == "__main__":
     print(f"Witness Constant: {delta_witness}")
     print(f"Convergence Error: {precision_report:.6f}%")
     print(f"Status: GABRIEL HAND-OFF COMPLETE. ! 1st‘")
-
+def find_bifurcations(self, map_func, start_r, end_r, depth=10):
+    """Bisection search for superstable orbits (The Razor's Edge)."""
+    r_min, r_max = start_r, end_r
+    for _ in range(depth):
+        r_mid = (r_min + r_max) / 2
+        x = 0.5
+        # Iterate 2^depth times to reach periodic orbit
+        for _ in range(2 ** depth):
+            x = map_func(r_mid, x)
+        if x > 0.5:
+            r_max = r_mid
+        else:
+            r_min = r_mid
+    return r_mid
